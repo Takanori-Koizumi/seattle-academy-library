@@ -30,6 +30,9 @@ public class AccountController {
 		return "createAccount";
 	}
 
+	
+
+	
 	/**
 	 * 新規アカウント作成
 	 *
@@ -49,6 +52,17 @@ public class AccountController {
 
 		// バリデーションチェック、パスワード一致チェック（タスク１）
 
+		 if(password.length() >=8 && password.matches("^[A-Za-z0-9]+$") ) 
+		 {
+		    	if(password.equals(passwordForCheck)) {
+		    		
+		    	}else {
+		    		model.addAttribute("errorMessage", "確認用パスワードと一致しません。");
+		    	}
+		 }else {
+		    	model.addAttribute("errorMessage", "半角英数字８文字で以上で入力してください。");
+		    	//System.out.println("半角英数字８文字で以上で入力してください。");
+		 }
 		
 		// パラメータで受け取ったアカウント情報をDtoに格納する。
 		UserInfo userInfo = new UserInfo();
