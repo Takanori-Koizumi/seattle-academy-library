@@ -48,7 +48,15 @@ public class AccountController {
 		logger.info("Welcome createAccount! The client locale is {}.", locale);
 
 		// バリデーションチェック、パスワード一致チェック（タスク１）
-
+       if(password.length() >= 8 && password.matches("0-9A-Za-z")){
+    	   if(passwordForCheck.equals(password)) {
+       } else {
+    	   System.out.println("パスワードが一致しません。");
+         }
+       } else {
+    	   System.out.println("パスワードを8文字以上かつ半角英数字に設定してください。");
+       }
+       
 		
 		// パラメータで受け取ったアカウント情報をDtoに格納する。
 		UserInfo userInfo = new UserInfo();
