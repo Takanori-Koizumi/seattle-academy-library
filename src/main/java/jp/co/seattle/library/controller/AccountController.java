@@ -42,15 +42,13 @@ public class AccountController {
 	 */
 
 	//email
-	public boolean email(String em) {
-		boolean result = false;
+	public boolean validateEmail(String em) {
 		String pattern = "^([a-zA-Z0-9])+([a-zA-Z0-9\\._-])*@([a-zA-Z0-9_-])+([a-zA-Z0-9\\._-]+)+";
 		Pattern p = Pattern.compile(pattern);
 		if (p.matcher(em).find()) {
-			result = true;
-			return result;
+			return true;
 		} else {
-			return result;
+			return false;
 		}
 	}
 
@@ -61,7 +59,7 @@ public class AccountController {
 			Pattern p1 = Pattern.compile(ch); // 正規表現パターンの読み込み
 			java.util.regex.Matcher m1 = p1.matcher(password); // パターンと検査対象文字列の照合
 			check = m1.matches(); // 照合結果をtrueかfalseで取得
-			if (check == true) {
+			if (check) {
 				System.out.println("パスワードが正しい");
 				return check;
 			} else {
@@ -82,7 +80,8 @@ public class AccountController {
 		// デバッグ用ログ
 		logger.info("Welcome createAccount! The client locale is {}.", locale);
 		
-		boolean emailResult = email(email);
+		//start
+		boolean emailResult = validateEmail(email);
 		if (!emailResult) {
 			model.addAttribute("errorMessage", "正しいemailを入力してください");
 		}
@@ -91,19 +90,21 @@ public class AccountController {
 		boolean validateResult = validatePassword(regex_AlphaNum, password);
 		if (!validateResult) {
 			model.addAttribute("errorMessage", "パスワードが８文字以上かつ半角英数字ではありません");
+			return "createAccount";
 		}
 		if (password.equals(passwordForCheck)) {
 			System.out.println("OK");
+			UserInfo userInfo = new UserInfo();
+			userInfo.setEmail(email);
+			userInfo.setPassword(password);
+			usersService.registUser(userInfo);
+			return "redirect:/login";
 		} else {
 			model.addAttribute("errorMessage", "パスワードが一致しません");
+			return "createAccount";
 		}
 
 		// パラメータで受け取ったアカウント情報をDtoに格納する。
-		UserInfo userInfo = new UserInfo();
-		userInfo.setEmail(email);
-		userInfo.setPassword(password);
-		usersService.registUser(userInfo);
-		return "redirect:/login";
 	}
 
 }
