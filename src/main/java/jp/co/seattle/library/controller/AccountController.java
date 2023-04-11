@@ -84,6 +84,7 @@ public class AccountController {
 		boolean emailResult = validateEmail(email);
 		if (!emailResult) {
 			model.addAttribute("errorMessage", "正しいemailを入力してください");
+			return "createAccount";
 		}
 		
 		String regex_AlphaNum = "^[A-Za-z0-9]+$";
