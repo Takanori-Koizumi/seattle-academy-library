@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -25,7 +24,7 @@ public class LoginController {
 
 	@RequestMapping(value = "/", method = RequestMethod.GET)
 	public String first(Model model) {
-		return "redirect:/login"; // jspファイル名
+		return "login"; // jspファイル名
 	}
 
 	/**
@@ -43,12 +42,8 @@ public class LoginController {
 		UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
 
 		// ユーザーが存在すればログイン、存在しなければエラー(タスク２)
-		if (!(StringUtils.isEmpty(selectedUserInfo))) {
-			return "redirect:/home";
-		} else {
-			model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
-			return "login";
-		}
 
+		
+		return "redirect:/home";
 	}
 }
