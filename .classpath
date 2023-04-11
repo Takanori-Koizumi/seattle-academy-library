@@ -1,35 +1,3 @@
-Skip to content
-Search or jump to…
-Pull requests
-Issues
-Codespaces
-Marketplace
-Explore
- 
-@Ruka-Suzuki 
-Ruka-Suzuki
-/
-seattle-academy-library
-Public
-forked from Takanori-Koizumi/seattle-academy-library
-Cannot fork because you own this repository and are not a member of any organizations.
-Code
-Pull requests
-Actions
-Projects
-Wiki
-Security
-Insights
-Settings
-seattle-academy-library/.classpath
-
-rukasuzuki task1＿一次コミット
-Latest commit da4b165 26 minutes ago
- History
- 0 contributors
-56 lines (56 sloc)  2.24 KB
- 
-
 <?xml version="1.0" encoding="UTF-8"?>
 <classpath>
 	<classpathentry kind="src" output="target/classes" path="src/main/java">
@@ -86,18 +54,3 @@ Latest commit da4b165 26 minutes ago
 	</classpathentry>
 	<classpathentry kind="output" path="target/classes"/>
 </classpath>
-Footer
-© 2023 GitHub, Inc.
-Footer navigation
-Terms
-Privacy
-Security
-Status
-Docs
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
-seattle-academy-library/.classpath at develop · Ruka-Suzuki/seattle-academy-library
