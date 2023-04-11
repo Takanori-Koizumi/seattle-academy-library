@@ -1,5 +1,7 @@
 package jp.co.seattle.library.controller;
 
+import java.util.Objects;
+
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,11 +41,16 @@ public class LoginController {
 	public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
 
 		// メアドとパスワードに一致するユーザー取得
-		UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
+		UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);//情報はとっている
 
 		// ユーザーが存在すればログイン、存在しなければエラー(タスク２)
-
+		if(Objects.isNull(selectedUserInfo)) {//
+			model.addAttribute("errorMessage", "存在しません");
+			return "login";
+		}else {
+			return "redirect:/home";
+		}
 		
-		return "redirect:/home";
+		
 	}
 }
