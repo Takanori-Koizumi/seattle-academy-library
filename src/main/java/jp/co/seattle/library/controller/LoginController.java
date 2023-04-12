@@ -45,7 +45,7 @@ public class LoginController {
 		if (selectedUserInfo != null) {
 			return "redirect:/home";
 		} else {
-			model.addAttribute("errorMessage", "");
+			model.addAttribute("errorMessage", "パスワードは8文字以上かつ半角英数字に設定してください。");
 			return "createAccount";
 
 		}
