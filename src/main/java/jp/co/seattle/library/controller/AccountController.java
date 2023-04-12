@@ -49,7 +49,6 @@ public class AccountController {
 
 		// バリデーションチェック、パスワード一致チェック（タスク１）
 
-		
 		// パラメータで受け取ったアカウント情報をDtoに格納する。
 		UserInfo userInfo = new UserInfo();
 		userInfo.setEmail(email);
