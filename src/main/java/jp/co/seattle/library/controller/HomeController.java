@@ -29,7 +29,8 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String transitionHome(Model model) {
 		//書籍の一覧情報を取得（タスク３）
-
+		String sql = "select　bookinfo"
+				
 		return "home";
 	}
 
