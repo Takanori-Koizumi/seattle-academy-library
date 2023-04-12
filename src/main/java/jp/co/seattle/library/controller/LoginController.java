@@ -1,6 +1,5 @@
 package jp.co.seattle.library.controller;
 
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,11 +42,11 @@ public class LoginController {
 		// メアドとパスワードに一致するユーザー取得
 		UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
 
-       if ( ! (ObjectUtils.isEmpty ( selectedUserInfo ))) {
-    	   return "redirect:/home";
-       } else {
-    	   model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
-    	   return "login";
-       }
+		if (!(ObjectUtils.isEmpty(selectedUserInfo))) {
+			return "redirect:/home";
+		} else {
+			model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
+			return "login";
+		}
 	}
 }
