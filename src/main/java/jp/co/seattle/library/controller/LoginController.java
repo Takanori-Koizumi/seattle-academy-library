@@ -15,7 +15,7 @@ import jp.co.seattle.library.dto.UserInfo;
 import jp.co.seattle.library.service.UsersService;
 
 /**
-.springframework.util.StringUtils; * ログインコントローラー
+
 */
 @Controller /** APIの入り口 */
 public class LoginController {
@@ -46,8 +46,8 @@ public class LoginController {
        if ( ! (ObjectUtils.isEmpty ( selectedUserInfo ))) {
     	   return "redirect:/home";
        } else {
-    	   model.addAttribute("errorMessage", "パスワードが一致しません。");
-    	   return "createAccount";
+    	   model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
+    	   return "login";
        }
 	}
 }
