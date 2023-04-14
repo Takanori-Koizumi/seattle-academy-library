@@ -35,6 +35,6 @@ public class HomeController {
 		List<BookInfo> getedBookList = booksService.getBookList();
 		model.addAttribute("getBookList",getedBookList);
 		return "home";
-	}
+	} 
 
 }
