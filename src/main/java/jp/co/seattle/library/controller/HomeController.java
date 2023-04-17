@@ -32,8 +32,8 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String transitionHome(Model model) {
 		//書籍の一覧情報を取得（タスク３）
-		List<BookInfo> book = booksService.getBookList();
-		model.addAttribute("booklist", book);
+		List<BookInfo> books = booksService.getBookList();
+		model.addAttribute("bookList", books);
 		return "home";
 	}
 
