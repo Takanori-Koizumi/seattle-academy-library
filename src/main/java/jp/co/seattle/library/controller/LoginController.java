@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.ObjectUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -13,8 +14,8 @@ import jp.co.seattle.library.dto.UserInfo;
 import jp.co.seattle.library.service.UsersService;
 
 /**
- * ログインコントローラー
- */
+
+*/
 @Controller /** APIの入り口 */
 public class LoginController {
 	final static Logger logger = LoggerFactory.getLogger(LoginController.class);
@@ -41,9 +42,11 @@ public class LoginController {
 		// メアドとパスワードに一致するユーザー取得
 		UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
 
-		// ユーザーが存在すればログイン、存在しなければエラー(タスク２)
-
-		
-		return "redirect:/home";
+		if (!(ObjectUtils.isEmpty(selectedUserInfo))) {
+			return "redirect:/home";
+		} else {
+			model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
+			return "login";
+		}
 	}
 }
