@@ -3,6 +3,7 @@ package jp.co.seattle.library.commonutil;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -29,22 +30,19 @@ public class BookUtil {
 		//TODO　各チェックNGの場合はエラーメッセージをリストに追加（タスク４）
 		List<String> errorList = new ArrayList<>();
 		// 必須チェック
-
 		if (isEmptyBookInfo(bookInfo)) {
 			errorList.add(REQUIRED_ERROR);
 		}
-
 		// ISBNのバリデーションチェック
 		if (isValidIsbn(bookInfo.getIsbn())) {
 			errorList.add(ISBN_ERROR);
 		}
-
 		// 出版日の形式チェック
 		if (checkDate(bookInfo.getPublishDate())) {
 			errorList.add(PUBLISHDATE_ERROR);
 		}
-		return errorList;
 
+		return errorList;
 	}
 
 	/**
@@ -57,14 +55,16 @@ public class BookUtil {
 		try {
 			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			formatter.setLenient(false); // ←これで厳密にチェックしてくれるようになる
-			//TODO　日付の形式が正しければtrue（タスク４）
-			//publishDateをDate型に変換（フォーマットを変える）
-			//Date publishDateDate = formatter.parse(publishDate);
-			//変換したpublishDateをString型に変換
-			//String publishDateString = formatter.format(publishDateDate);
-			//String型に変換したpublishdateと元々取得したpublishdateをeqaulsで比較
+			//TODO　取得した日付の形式が正しければtrue（タスク４）
 
-			formatter.parse(publishDate);
+			// publishdateをDate型に変換
+			Date publishDateDate = formatter.parse(publishDate);
+			//変換したpublishDateをString型に変換
+			String publishDateString = formatter.format(publishDateDate);
+			//string型に変換したpublishdateと元々入力されたpublishdateをequalsで比較
+			if (publishDateString == publishDate) {
+				return true;
+			}
 			return false;
 
 		} catch (Exception p) {
@@ -85,7 +85,6 @@ public class BookUtil {
 			if ((isbn.length() == 10 || isbn.length() == 13) && isbn.matches("^[0-9]+$")) {
 				return false;
 			} else {
-
 				return true;
 			}
 		}
@@ -103,9 +102,11 @@ public class BookUtil {
 		//TODO　タイトル、著者、出版社、出版日のどれか一つでもなかったらtrue（タスク４）
 		if (!bookInfo.getTitle().isEmpty() && !bookInfo.getAuthor().isEmpty() && !bookInfo.getPublisher().isEmpty()
 				&& !bookInfo.getPublishDate().isEmpty()) {
+
 			return false;
 		} else {
 			return true;
 		}
 	}
+
 }
