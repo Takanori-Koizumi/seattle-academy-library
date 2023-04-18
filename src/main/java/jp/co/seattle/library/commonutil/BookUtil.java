@@ -78,8 +78,8 @@ public class BookUtil {
 	 */
 	private static boolean isValidIsbn(String isbn) {
 		//TODO　ISBNが半角数字で10文字か13文字であればtrue（タスク４）
-		if (isbn.length() > 0) {
-			if (isbn.matches("^[0-9]+$") && (isbn.length() == 10 || isbn.length() == 13)) {
+		if (!StringUtils.isEmpty(isbn)) {
+			if (isbn.matches("^[0-9]{10}|[0-9]{13}+$")) {//正規表現で10桁、13桁可能
 				return true;
 			} else {
 				return false;
@@ -97,11 +97,11 @@ public class BookUtil {
 	 */
 	private static boolean isEmptyBookInfo(BookDetailsInfo bookInfo) {
 		//TODO　タイトル、著者、出版社、出版日のどれか一つでもなかったらtrue（タスク４）
-		if ((!StringUtils.isEmpty(bookInfo.getTitle())) && (!StringUtils.isEmpty(bookInfo.getAuthor()))
-				&& (!StringUtils.isEmpty(bookInfo.getPublisher()))
-				&& (!StringUtils.isEmpty(bookInfo.getPublishDate()))) {
-			return false;
+		if ((StringUtils.isEmpty(bookInfo.getTitle())) || (StringUtils.isEmpty(bookInfo.getAuthor()))
+				|| (StringUtils.isEmpty(bookInfo.getPublisher()))
+				|| (StringUtils.isEmpty(bookInfo.getPublishDate()))) {
+			return true;
 		}
-		return true;
+		return false;
 	}
 }
