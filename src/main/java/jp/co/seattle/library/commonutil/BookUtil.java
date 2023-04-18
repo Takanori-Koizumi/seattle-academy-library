@@ -3,6 +3,7 @@ package jp.co.seattle.library.commonutil;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import org.slf4j.Logger;
@@ -59,16 +60,14 @@ public class BookUtil {
 			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			formatter.setLenient(false); // ←これで厳密にチェックしてくれるようになる
 			//TODO　取得した日付の形式が正しければtrue（タスク４）
-			//formatter.parse(publishDate);
-			if (publishDate.length() > 0) {
-				if (publishDate.length() == 8) {
-					return true;
-				} else {
-					return false;
-				}
-			} else {
+			Date publishdate = formatter.parse(publishDate);
+			String publishstring = formatter.format(publishdate);
+			if (publishDate.equals(publishstring)) {
 				return true;
+			} else {
+				return false;
 			}
+
 		} catch (Exception p) {
 			p.printStackTrace();
 			return false;
