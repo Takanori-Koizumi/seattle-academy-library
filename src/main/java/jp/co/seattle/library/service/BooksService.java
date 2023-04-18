@@ -33,7 +33,7 @@ public class BooksService {
 
 		// TODO 書籍名の昇順で書籍情報を取得するようにSQLを修正（タスク３）
 		List<BookInfo> getedBookList = jdbcTemplate.query(
-				"SELECT * FROM books ORDER BY title ASC;",
+				"SELECT id, title, author, publisher, publish_date, thumbnail_url  FROM books ORDER BY title ASC;",
 				new BookInfoRowMapper());
 
 		return getedBookList;
@@ -45,6 +45,7 @@ public class BooksService {
 	 * @param bookId 書籍ID
 	 * @return 書籍情報
 	 */
+
 	public BookDetailsInfo getBookInfo(int bookId) {
 		String sql = "SELECT id, title, author, publisher, publish_date, isbn, description, thumbnail_url, thumbnail_name FROM books WHERE books.id = ? ORDER BY title ASC;";
 
@@ -61,8 +62,7 @@ public class BooksService {
 	 */
 	public int registBook(BookDetailsInfo bookInfo) {
 		// TODO 取得した書籍情報を登録し、その書籍IDを返却するようにSQLを修正（タスク４）
-		String sql = "INSERT INTO books(title, author, publisher, publish_date, isbn, description, thumbnail_url, thumbnail_name, reg_date, upd_date) VALUES(?,?,?,?,?,?,?,?,NOW(),NOW()) RETURNING id;";
-		
+		String sql = "INSERT INTO books(title, author, publisher, publish_date, thumbnail_name, thumbnail_url, isbn, description, reg_date, upd_date) VALUES(?, ?, ?, ?, ?, ?, ?, ?, now(), now()) RETURNING id;";
 		int bookId = jdbcTemplate.queryForObject(sql, int.class, bookInfo.getTitle(), bookInfo.getAuthor(),
 				bookInfo.getPublisher(), bookInfo.getPublishDate(), bookInfo.getThumbnailName(),
 				bookInfo.getThumbnailUrl(), bookInfo.getIsbn(), bookInfo.getDescription());
@@ -76,7 +76,7 @@ public class BooksService {
 	 */
 	public void deleteBook(int bookId) {
 		// TODO 対象の書籍を削除するようにSQLを修正（タスク6）
-		String sql = "";
+		String sql = "DELETE FROM books WHERE books.id = ?;";
 		jdbcTemplate.update(sql, bookId);
 	}
 

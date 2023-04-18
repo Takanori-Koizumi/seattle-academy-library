@@ -8,6 +8,7 @@ import java.util.List;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.util.StringUtils;
 
 import jp.co.seattle.library.dto.BookDetailsInfo;
 
@@ -25,18 +26,22 @@ public class BookUtil {
 	 * @return errorList エラーメッセージのリスト
 	 */
 	public List<String> checkBookInfo(BookDetailsInfo bookInfo) {
-		
 		//TODO　各チェックNGの場合はエラーメッセージをリストに追加（タスク４）
 		List<String> errorList = new ArrayList<>();
 		// 必須チェック
+		if (isEmptyBookInfo(bookInfo)) {
+			errorList.add(REQUIRED_ERROR);
+		}
 
-		
 		// ISBNのバリデーションチェック
-
+		if (!isValidIsbn(bookInfo.getIsbn())) {
+			errorList.add(ISBN_ERROR);
+		}
 
 		// 出版日の形式チェック
-
-
+		if (!checkDate(bookInfo.getPublishDate())) {
+			errorList.add(PUBLISHDATE_ERROR);
+		}
 		return errorList;
 	}
 
@@ -51,8 +56,13 @@ public class BookUtil {
 			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			formatter.setLenient(false); // ←これで厳密にチェックしてくれるようになる
 			//TODO　取得した日付の形式が正しければtrue（タスク４）
-			
-			return true;
+			String s1 = publishDate;
+			String s2 = formatter.format(formatter.parse(s1));
+			if (s1.equals(s2)) {
+				return true;
+			} else {
+				return false;
+			}
 		} catch (Exception p) {
 			p.printStackTrace();
 			return false;
@@ -64,11 +74,19 @@ public class BookUtil {
 	 * 
 	 * @param isbn
 	 * @return ISBNが半角数字で10文字か13文字かどうか
+	 * 
 	 */
 	private static boolean isValidIsbn(String isbn) {
 		//TODO　ISBNが半角数字で10文字か13文字であればtrue（タスク４）
-		
-		return true;
+		if (!StringUtils.isEmpty(isbn)) {
+			if (isbn.matches("^[0-9]{10}|[0-9]{13}+$")) {//正規表現で10桁、13桁可能
+				return true;
+			} else {
+				return false;
+			}
+		} else {
+			return true;
+		}
 	}
 
 	/**
@@ -79,7 +97,11 @@ public class BookUtil {
 	 */
 	private static boolean isEmptyBookInfo(BookDetailsInfo bookInfo) {
 		//TODO　タイトル、著者、出版社、出版日のどれか一つでもなかったらtrue（タスク４）
-		
-		return true;
+		if ((StringUtils.isEmpty(bookInfo.getTitle())) || (StringUtils.isEmpty(bookInfo.getAuthor()))
+				|| (StringUtils.isEmpty(bookInfo.getPublisher()))
+				|| (StringUtils.isEmpty(bookInfo.getPublishDate()))) {
+			return true;
+		}
+		return false;
 	}
 }
