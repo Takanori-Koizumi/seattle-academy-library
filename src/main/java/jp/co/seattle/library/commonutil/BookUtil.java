@@ -100,8 +100,9 @@ public class BookUtil {
 	 */
 	private static boolean isEmptyBookInfo(BookDetailsInfo bookInfo) {
 		//TODO　タイトル、著者、出版社、出版日のどれか一つでもなかったらtrue（タスク４）
-		if (!bookInfo.getTitle().isEmpty() || !bookInfo.getAuthor().isEmpty() || !bookInfo.getPublisher().isEmpty()
-				|| !bookInfo.getPublishDate().isEmpty()) {
+		if ((!bookInfo.getTitle().isEmpty()) && (!bookInfo.getAuthor().isEmpty())
+				&& (!bookInfo.getPublisher().isEmpty())
+				&& (!bookInfo.getPublishDate().isEmpty())) {
 
 			return false;
 		} else {
