@@ -27,7 +27,7 @@ public class DeleteBookController {
 		logger.info("Welcome deleteBook! The client locale is {}.", locale);
 		
 		booksService.deleteBook(bookId);
-
+		
 		// 一覧画面に遷移する
 		return "redirect:/home";
 	}
