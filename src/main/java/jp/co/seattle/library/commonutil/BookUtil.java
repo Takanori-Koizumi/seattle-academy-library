@@ -62,8 +62,7 @@ public class BookUtil {
 			//TODO　取得した日付の形式が正しければtrue（タスク４）
 			Date date2 = formatter.parse(publishDate);
 			String date3 = formatter.format(date2);
-			publishDate.equals(date3);
-			return true;
+			return publishDate.equals(date3);
 		} catch (Exception p) {
 			p.printStackTrace();
 			return false;
