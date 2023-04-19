@@ -79,7 +79,7 @@ public class BooksService {
 		String sql = "";
 		jdbcTemplate.update(sql, bookId);
 	}
-
+	
 	/**
 	 * 書籍情報を更新する
 	 * 
