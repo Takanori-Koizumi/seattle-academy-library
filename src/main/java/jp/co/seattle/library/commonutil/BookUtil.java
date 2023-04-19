@@ -29,14 +29,13 @@ public class BookUtil {
 
 		//TODO　各チェックNGの場合はエラーメッセージをリストに追加（タスク４）
 		List<String> errorList = new ArrayList<>();
-
 		// 必須チェック
 		if (isEmptyBookInfo(bookInfo)) {
 			errorList.add(REQUIRED_ERROR);
 		}
 
 		// ISBNのバリデーションチェック
-		if ((isValidIsbn(bookInfo.getIsbn()))) {
+		if (isValidIsbn(bookInfo.getIsbn())) {
 			errorList.add(ISBN_ERROR);
 		}
 
@@ -59,20 +58,15 @@ public class BookUtil {
 			DateFormat formatter = new SimpleDateFormat("yyyyMMdd");
 			formatter.setLenient(false); // ←これで厳密にチェックしてくれるようになる
 			//TODO　取得した日付の形式が正しければtrue（タスク４）
-
-			//①取得したString型の日付1をDate型の日付2に変換（この時にフォーマッターを使って形を整えている）
-			//②Date型の日付2をString型の日付3に変換
-			//③日付1と日付3の比較を行っている
-			//s④一致していればバリデーションOK
-			Date publishDateDate = formatter.parse(publishDate);
-
+			// publishdateをDate型に変換
+			Date publishDateDate = (formatter.parse(publishDate));
+			//変換したpublishDateをString型に変換
 			String publishDateString = formatter.format(publishDateDate);
-
+			//string型に変換したpublishdateと元々入力されたpublishdateを比較
 			if (publishDateString.equals(publishDate)) {
 				return false;
 			}
 			return true;
-			//formatter.parse(publishDate);
 
 		} catch (Exception p) {
 			p.printStackTrace();
@@ -89,13 +83,14 @@ public class BookUtil {
 	private static boolean isValidIsbn(String isbn) {
 		//TODO　ISBNが半角数字で10文字か13文字であればtrue（タスク４）
 		if (!isbn.isEmpty()) {
-			if (isbn.length() == 10 || isbn.length() == 13 && isbn.matches("^[0-9]+$")) {
+			if ((isbn.length() == 10 || isbn.length() == 13) && isbn.matches("^[0-9]+$")) {
 				return false;
 			} else {
 				return true;
 			}
 		}
 		return false;
+
 	}
 
 	/**
