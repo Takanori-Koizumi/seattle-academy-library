@@ -62,18 +62,24 @@
 						</c:if>
 						<span>書籍名</span><span class="care care2">必須</span>
 					</div>
-					<span>著者名</span> <span class="care care2">必須</span>">
+					<input type="text" name="title" value="${bookInfo.title}">
+					<span>著者名</span> <span class="care care2">必須</span> <input
+						type="text" name="author" value="${bookInfo.author}">
 					<div>
-						<span>出版社</span><span class="care care2">必須</span>
+						<span>出版社</span><span class="care care2">必須</span> <input
+							type="text" name="publisher" value="${bookInfo.publisher}">
 					</div>
 					<div>
-						<span>出版日</span><span class="care care2">必須</span> 
+						<span>出版日</span><span class="care care2">必須</span> <input
+							type="text" name="publishDate" value="${bookInfo.publishDate}">
 					</div>
 					<div>
-						<span>ISBN</span><span class="care care1">任意</span> 
+						<span>ISBN</span><span class="care care1">任意</span> <input
+							type="text" name="isbn" value="${bookInfo.isbn}">
 					</div>
 					<div>
-						<span>説明文</span><span class="care care1">任意</span> 
+						<span>説明文</span><span class="care care1">任意</span> <input
+							type="text" name="description" value="${bookInfo.description}">
 						<input type="hidden" id="bookId" name="bookId"
 							value="${bookInfo.bookId}">
 					</div>
