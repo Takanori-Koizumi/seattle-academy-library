@@ -31,6 +31,7 @@
             </div>
             <div class="authorization_navi">
                 <label class="authorization_text">まだアカウントをお持ちでないですか？</label> <a class="authorization_link marker" href="<%=request.getContextPath()%>/newAccount">アカウント作成</a>
+                <label class="authorization_text">パスワード変更はこちら</label> <a class="authorization_link marker" href="<%=request.getContextPath()%>/newPass">パスワード変更</a>
             </div>
         </div>
         <footer>
