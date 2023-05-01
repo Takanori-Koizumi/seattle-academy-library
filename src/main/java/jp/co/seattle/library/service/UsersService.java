@@ -51,5 +51,13 @@ public class UsersService {
 			return null;
 		}
 	}
+	
+	public void resetPass(UserInfo userInfo) {
+
+		// SQL生成
+		String sql = "UPDATE users SET password=? WHERE email=?;";
+
+		jdbcTemplate.update(sql,userInfo.getPassword(),userInfo.getEmail());
+	}
 
 }

@@ -26,8 +26,7 @@ public class PasswordResetController {
 	private UsersService usersService;
 
 	@RequestMapping(value = "/resetPass", method = RequestMethod.GET) 
-	public String ResetPass(Locale locale, @RequestParam("email") String email,
-			@RequestParam("password") String password, @RequestParam("passwordForCheck") String passwordForCheck,Model model) {
+	public String ResetPass(Model model) {
 		return "passwordReset";
 	}
 
@@ -38,6 +37,8 @@ public class PasswordResetController {
 	public String Reset(Locale locale, @RequestParam("email") String email,
 			@RequestParam("password") String password, @RequestParam("passwordForCheck") String passwordForCheck,
 			Model model) {
+		logger.info("Welcome resetAccount! The client locale is {}.", locale);
+		
 		// バリデーションチェック、パスワード一致チェック（タスク１）
 		if (password.length() >= 8 && password.matches("^[A-Za-z0-9]+$")) {
 			if (password.equals(passwordForCheck)) {
@@ -45,7 +46,7 @@ public class PasswordResetController {
 				UserInfo userInfo = new UserInfo();
 				userInfo.setEmail(email);
 				userInfo.setPassword(password);
-				usersService.registUser(userInfo);
+				usersService.resetPass(userInfo);
 			} else {
 				model.addAttribute("errorMessage", "パスワードが一致しません。");
 				return "reset";
@@ -54,7 +55,7 @@ public class PasswordResetController {
 			model.addAttribute("errorMessage", "パスワードは8文字以上かつ半角英数字に設定してください。");
 			return "reset";
 		}
-		return "redirect:/login";
+		return "redirect:/";
 	}
 
 }
