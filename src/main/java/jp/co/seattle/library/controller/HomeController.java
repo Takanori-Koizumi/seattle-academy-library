@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.service.BooksService;
@@ -42,5 +43,15 @@ public class HomeController {
 		}
 		return "home";
 	}
-
+	@RequestMapping(value = "/search", method = RequestMethod.GET)
+	public String bookSearch(@RequestParam("search") String search, Model model) {
+		List<BookInfo> getedSearchList = booksService.getSearchBook(search);
+		
+		if(getedSearchList.isEmpty()) {
+			model.addAttribute("resultMessage", "データが存在しません");
+		}else {
+			model.addAttribute("bookList", getedSearchList);
+		}
+		return "home";
+	}
 }
