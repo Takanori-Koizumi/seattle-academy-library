@@ -27,8 +27,8 @@
     <main>
         <h1>Home</h1>
         <a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a>
-        <a href="<%=request.getContextPath()%>/sortASC" class="btn_add_book">昇順</a>
-        <a href="<%=request.getContextPath()%>/sortDESC" class="btn_add_book">降順</a>
+        <a href="<%=request.getContextPath()%>/sortAsc" class="btn_add_book">昇順</a>
+        <a href="<%=request.getContextPath()%>/sortDesc" class="btn_add_book">降順</a>
         <a href="<%=request.getContextPath()%>/sortAuthor" class="btn_add_book">著者昇順</a>
         <a href="<%=request.getContextPath()%>/sortPublishDate" class="btn_add_book">出版日順</a>
         <div class="content_body">
