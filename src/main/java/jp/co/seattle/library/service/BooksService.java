@@ -13,7 +13,6 @@ import jp.co.seattle.library.dto.BookInfo;
 import jp.co.seattle.library.rowMapper.BookDetailsInfoRowMapper;
 import jp.co.seattle.library.rowMapper.BookInfoRowMapper;
 
-
 /**
  * 書籍サービス
  * 
@@ -39,7 +38,36 @@ public class BooksService {
 
 		return getedBookList;
 	}
+	
+	public List<BookInfo> descList() {
 
+		// TODO 書籍名の降順で書籍情報を取得するようにSQLを修正（タスク３）
+		List<BookInfo> getedBookList = jdbcTemplate.query(
+				"SELECT * FROM books ORDER BY title DESC",
+				new BookInfoRowMapper());
+
+		return getedBookList;
+	}
+		
+	public List<BookInfo> authorList() {
+
+		// TODO 著者昇順で書籍情報を取得するようにSQLを修正（タスク３）
+		List<BookInfo> getedBookList = jdbcTemplate.query(
+				"SELECT * FROM books ORDER BY author",
+				new BookInfoRowMapper());
+
+		return getedBookList;
+	}
+	
+	public List<BookInfo> publishDateList() {
+
+		// TODO 書籍名の昇順で書籍情報を取得するようにSQLを修正（タスク３）
+		List<BookInfo> getedBookList = jdbcTemplate.query(
+				"SELECT * FROM books ORDER BY publishDate",
+				new BookInfoRowMapper());
+
+		return getedBookList;
+	}
 	/**
 	 * 書籍IDに紐づく書籍詳細情報を取得する
 	 *
@@ -101,4 +129,5 @@ public class BooksService {
 					bookInfo.getIsbn(), bookInfo.getDescription(), bookInfo.getBookId());
 		}
 	}
+
 }

@@ -32,10 +32,39 @@ public class HomeController {
 	@RequestMapping(value = "/home", method = RequestMethod.GET)
 	public String transitionHome(Model model) {
 		//書籍の一覧情報を取得（タスク３）
-		
+
 		List<BookInfo> bookList = booksService.getBookList();
 		model.addAttribute("bookList", bookList);
 		return "home";
+
 	}
 
+	@RequestMapping(value = "/sortDesc", method = RequestMethod.GET)
+	public String getbookInfo(Model model) {
+		//書籍の一覧情報を取得（タスク３）
+
+		List<BookInfo> bookList = booksService.descList();
+		model.addAttribute("bookList", bookList);
+		return "home";
+
+	}
+
+	@RequestMapping(value = "/sortAuthor", method = RequestMethod.GET)
+	public String sortAuthor(Model model) {
+		//書籍の一覧情報を取得（タスク３）
+
+		List<BookInfo> bookList = booksService.authorList();
+		model.addAttribute("bookList", bookList);
+		return "home";
+
+	}
+
+	@RequestMapping(value = "/sortPublishDate", method = RequestMethod.GET)
+	public String sortPublishDate(Model model) {
+		//書籍の一覧情報を取得（タスク３）
+
+		List<BookInfo> bookList = booksService.publishDateList();
+		model.addAttribute("bookList", bookList);
+		return "home";
+	}
 }
