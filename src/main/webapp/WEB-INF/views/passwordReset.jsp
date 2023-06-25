@@ -7,7 +7,7 @@
 <meta name="description" content="社内の書籍検索や貸出を行うことができます。" />
 <meta name="robots" content="noindex,nofollow" />
 <meta http-equiv="content-type" content="text/html" charset="utf-8" />
-<title>アカウントの作成｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
+<title>パスワードリセット｜シアトルライブラリ｜シアトルコンサルティング株式会社</title>
 <link href="<c:url value="/resources/css/reset.css" />" rel="stylesheet" type="text/css">
 <link href="https://fonts.googleapis.com/css?family=Noto+Sans+JP" rel="stylesheet">
 <link href="<c:url value="/resources/css/default.css" />" rel="stylesheet" type="text/css">
@@ -22,14 +22,13 @@
             </div>
             <div class="authorization">
                 <div class="authorization_form">
-                    <form method="post" action="createAccount">
-                        <div class="title">アカウントの作成</div>
+                    <form method="post" action="reset">
+                        <div class="title">パスワードリセット</div>
                         <label class="label">メールアドレス</label> <input type="email" class="input" id="email" name="email" autocomplete="off" required> <label class="label">パスワード</label> <input type="password" class="input" id="password" name="password" required> <label class="label">パスワード（確認用）</label> <input type="password" class="input" id="passwordForCheck" name="passwordForCheck" required>
-                        <label class="label">本棚用パスワード</label> <input type="password" class="input" id="shelfpassword" name="shelfPassword" required> <label class="label">本棚用パスワード（確認用）</label> <input type="password" class="input" id="shelfPasswordForCheck" name="shelfPasswordForCheck" required>
                         <c:if test="${!empty errorMessage}">
                             <div class="error">${errorMessage}</div>
                         </c:if>
-                        <input type="submit" class="button primary" value="作成する">
+                        <input type="submit" class="button primary" value="リセット">
                     </form>
                 </div>
                 <div class="authorization_navi">

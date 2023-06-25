@@ -56,7 +56,7 @@ public class EditBookController {
 	public String updateBook(Locale locale, @RequestParam("bookId") int bookId, @RequestParam("title") String title,
 			@RequestParam("author") String author, @RequestParam("publisher") String publisher,
 			@RequestParam("publishDate") String publishDate, @RequestParam("isbn") String isbn,
-			@RequestParam("description") String description, @RequestParam("thumbnail") MultipartFile file,
+			@RequestParam("description") String description, @RequestParam("tag") String tag, @RequestParam("thumbnail") MultipartFile file,
 			Model model) {
 		logger.info("Welcome updateBook! The client locale is {}.", locale);
 
@@ -69,6 +69,7 @@ public class EditBookController {
 		bookInfo.setPublishDate(publishDate);
 		bookInfo.setIsbn(isbn);
 		bookInfo.setDescription(description);
+		bookInfo.setTag(tag);
 
 		List<String> errorList = bookUtil.checkBookInfo(bookInfo);
 		// errorListに一つでもエラーメッセージが入っていたら登録しない
@@ -87,7 +88,6 @@ public class EditBookController {
 				String fileName = thumbnailService.uploadThumbnail(thumbnail, file);
 				// URLを取得
 				String thumbnailUrl = thumbnailService.getURL(fileName);
-
 				bookInfo.setThumbnailName(fileName);
 				bookInfo.setThumbnailUrl(thumbnailUrl);
 

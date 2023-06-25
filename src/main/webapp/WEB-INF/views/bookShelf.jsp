@@ -15,9 +15,9 @@
 	rel="stylesheet">
 <link href="<c:url value="/resources/css/home.css" />" rel="stylesheet"
 	type="text/css">
-<meta content="text/html; charset=shift_jis" http-equiv="Content-Type" />
 </head>
 <body class="wrapper">
+
 <div class="overlay"></div>
   <nav class="nav">
     <div class="toggle">
@@ -27,12 +27,12 @@
       <a href="#">MENU</a>
     </div>
     <ul class="linkList">
-      <li><a href="<%=request.getContextPath()%>/home" class="menu">🏠Home</a></li>
-      <li><a href="<%=request.getContextPath()%>/favBook">❤️Favorite</a></li>
+      <li><a href="<%=request.getContextPath()%>/home" class="menu">Home</a></li>
+      <li><a href="<%=request.getContextPath()%>/favBook">❤️お気に入り</a></li>
       <li><a href="<%=request.getContextPath()%>/loginBookShelf"
-					>📚BookShelf</a></li>
-      <li><a href="#">🔗Contact</a></li>
-      <li><button type="button" class="logout">🚪LogOut</button></li>
+					>📚本棚</a></li>
+      <li><a href="#">Contact</a></li>
+      <li><button type="button" class="logout">ログアウト</button></li>
       </div>
 		<div id="modal" class="modal">
 			<div class="modal-content">
@@ -45,6 +45,7 @@
 		</div>
     </ul>
   </nav>
+
 <script>
 
 //ドロワー機能
@@ -69,8 +70,7 @@ document.body.classList.remove("show-nav");
 document.getElementById("deleteconpo").classList.toggle("deleteclass")
 });
 }
- 
-//本棚に追加
+
 function shelf(){
     console.log("10");
     const arr = [];
@@ -86,22 +86,17 @@ function shelf(){
   
          var status = new XMLHttpRequest();
       
-             status.open('POST',"http://localhost:8080/SeattleLibrary/addShelf?bookId="+arr+"");
+             status.open('POST',"http://localhost:8080/SeattleLibrary/deleteShelf?bookId="+arr+"");
              status.send();  
     
 }
 
-//ラジオボタン
-window.onload = function radio_func(check,id) {
+function radio_func(check,id) {
     var status = new XMLHttpRequest();
       status.open('POST',"http://localhost:8080/SeattleLibrary/readStatus?value="+check+"&bookId="+id+"");
        status.send();
 }
 
-
-
-
-//ラジオボタンへのid付与
 window.onload = function(){
 	let unread = document.getElementsByClassName('unread');
 	let label_unread = document.getElementsByClassName('label_unread');
@@ -109,6 +104,8 @@ window.onload = function(){
 		var val = 'unread'+(i+1);
 		unread[i].setAttribute("id",val);
 		label_unread[i].setAttribute("for",val);
+		console.log(unread[i]);
+		console.log(label_unread[i]);
 	}
 
 	let read = document.getElementsByClassName('read');
@@ -117,6 +114,8 @@ window.onload = function(){
 		var val = 'read'+(i+1);
 		read[i].setAttribute("id",val);
 		label_read[i].setAttribute("for",val);
+		console.log(read[i]);
+		console.log(label_read[i]);
 	}
 
 	let reading = document.getElementsByClassName('reading');
@@ -125,6 +124,8 @@ window.onload = function(){
 		var val = 'reading'+(i+1);
 		reading[i].setAttribute("id",val);
 		label_reading[i].setAttribute("for",val);
+		console.log(reading[i]);
+		console.log(label_reading[i]);
 	}
 };
 
@@ -169,49 +170,6 @@ cancelButton.addEventListener('click', hideModal);
 });
 });
 
-//タグの名前を取得し、重複を除いた配列を作成
-window.onload = function() {
-	var select = document.getElementsByClassName('book_tag');
-
-	const setList = new Set();
-	
-	for(let i =0;i<select.length;i++){
-		setList.add(select[i].textContent.substr(3));
-		}	
-	
-	//Tag名が格納された配列をまわす
-	for(let set of setList){
-		let element = document.getElementById('tagName');
-
-		element.insertAdjacentHTML('beforeend', '<option>'+set+'</option>');
-
-	}
-
-} 
-
-	//選択されたタグをコントローラーに送る
-function selection(){ 
-	
-	let obj = document.getElementById("tagName");
-	let idx = obj.selectedIndex;
-	var getText = obj.options[idx].text;
-	console.log(getText);  
-
-	var form = document.createElement('form');
-	form.action = 'http://localhost:8080/SeattleLibrary/selectTag';
-    form.method = 'POST';
-
-    var q = document.createElement('input');
-    q.value = getText;
-    q.name = 'getText';
-
-    form.appendChild(q);
-    document.body.appendChild(form);
-
-    form.submit();
-
-} 
-
 </script>
 	<header>
 		<div class="left">
@@ -220,41 +178,27 @@ function selection(){
 		</div>
 	</header>
 	<main>
-		<h1>Home</h1>
+		<h1>本棚</h1>
 		<form action="search" class="search-form-008">
 			<label> <input type="text" name="search"
 				placeholder="タイトル名かタグ名を入力">
 			</label>
 			<button type="submit" aria-label="検索" class="search-form-008 button"></button>
 		</form>
-		<div>
-			<div>
-				<a href="<%=request.getContextPath()%>/addBook" class="btn_add_book">書籍の追加</a>
-			</div>
-			<div class="btn_shelf">
-			 <input type="button" form="form1"
-					class="btn_addShelf_book" value="本棚に追加" onclick="shelf()">
-			</div>
-		</div>
-		<select id="tagName" onchange="selection()">
-			<option value="">タグを選択</option>
-		</select>
+		<input type="button" form="form1" class="btn_addShelf_book" value="本棚から削除" onclick="shelf()">
 		<div class="content_body">
 			<c:if test="${!empty resultMessage}">
 				<div class="error_msg">${resultMessage}</div>
 			</c:if>
-			<div>
 				<div class="booklist">
 					<c:forEach var="bookInfo" items="${bookList}">
 						<div class="books">
 							<div>
-								<form method="post" name="form1" id="form1" class="shelfCheck"
-									action="addShelf">
-									<input type="checkbox" name="bookShelf"
-										value="${bookInfo.bookId}" id="shelfBtn">📚
+								<form method="post" name="form1" id="form1" class="shelfCheck" action="deleteShelf">
+									<input type="checkbox" name="bookShelf" value="${bookInfo.bookId}"
+										id="shelfBtn">📚
 								</form>
 							</div>
-							<li class="book_title">${bookInfo.title}</li>
 							<form method="get" class="book_thumnail" action="editBook">
 								<a href="javascript:void(0)" onclick="this.parentNode.submit();">
 									<c:if test="${empty bookInfo.thumbnail}">
@@ -265,52 +209,53 @@ function selection(){
 								</a> <input type="hidden" name="bookId" value="${bookInfo.bookId}">
 							</form>
 							<ul>
+								<li class="book_title">${bookInfo.title}</li>
 								<li class="book_author">${bookInfo.author}(著)</li>
 								<li class="book_publisher">出版社：${bookInfo.publisher}</li>
 								<li class="book_publish_date">出版日：${bookInfo.publishDate}</li>
 								<li class="book_tag">タグ：${bookInfo.tag}</li>
-							</ul>
-							<div class="likeBtn">
-								<c:if test="${!(bookInfo.favorite.equals('like'))}">
-									<form method="GET" action="favorite" name="favorite">
-										<button class="button-064">お気に入り</button>
-										<input type="hidden" name="bookId" value="${bookInfo.bookId}">
-									</form>
-								</c:if>
-								<c:if test="${bookInfo.favorite.equals('like')}">
-									<form method="GET" action="unlike" name="nonFavorite">
-										<button class="button-064">お気に入り解除</button>
-										<input type="hidden" name="bookId" value="${bookInfo.bookId}">
-									</form>
-								</c:if>
-							</div>
-								<c:if test="${bookInfo.status == NULL}">
-									<div style="display: grid; gap: 20px; padding-top: 8px;">
-										<div>
-											<input class="radio_btn unread" type="radio"
-												name="site${bookInfo.bookId}" value="1"
-												onchange="radio_func(this.value,${bookInfo.bookId})" checked>
-											<label class="label_unread"></label>
-											<p class="status">未読</p>
-										</div>
-										<div>
-											<input class="radio_btn reading" type="radio"
-												name="site${bookInfo.bookId}" value="2"
-												onchange="radio_func(this.value,${bookInfo.bookId})">
-											<label class="label_reading"></label>
-											<p class="status">読書中</p>
-										</div>
-										<div>
-											<input class="radio_btn read" id="read" type="radio"
-												name="site${bookInfo.bookId}" value="3"
-												onchange="radio_func(this.value,${bookInfo.bookId})">
-											<label class="label_read"></label>
-											<p class="status">読了</p>
-										</div>
+								</ul>
+								<div class="likeBtn">
+									<c:if test="${!(bookInfo.favorite.equals('like'))}">
+										<form method="GET" action="favorite" name="favorite">
+											<button class="button-064">お気に入り</button>
+											<input type="hidden" name="bookId" value="${bookInfo.bookId}">
+										</form>
+									</c:if>
+									<c:if test="${bookInfo.favorite.equals('like')}">
+										<form method="GET" action="unlike" name="nonFavorite">
+											<button class="button-064">お気に入り解除</button>
+											<input type="hidden" name="bookId" value="${bookInfo.bookId}">
+										</form>
+									</c:if>
 									</div>
-								</c:if>
-								<c:if test="${bookInfo.status.equals('1')}">
-									<div style="display: grid; gap: 20px; padding-top: 8px;">
+									<c:if test="${bookInfo.status == NULL}">
+										<div style="display: grid; gap: 20px;">
+											<div>
+												<input class="radio_btn unread" type="radio"
+													name="site${bookInfo.bookId}" value="1"
+													onchange="radio_func(this.value,${bookInfo.bookId})"
+													checked> <label class="label_unread"></label>
+												<p class="status">未読</p>
+											</div>
+											<div>
+												<input class="radio_btn reading" type="radio"
+													name="site${bookInfo.bookId}" value="2"
+													onchange="radio_func(this.value,${bookInfo.bookId})">
+												<label class="label_reading"></label>
+												<p class="status">読書中</p>
+											</div>
+											<div>
+												<input class="radio_btn read" id="read" type="radio"
+													name="site${bookInfo.bookId}" value="3"
+													onchange="radio_func(this.value,${bookInfo.bookId})">
+												<label class="label_read"></label>
+												<p class="status">読了</p>
+											</div>
+										</div>	
+									</c:if> 
+									<c:if test="${bookInfo.status.equals('1')}">
+									<div style="display: grid; gap: 20px;">
 										<div>
 											<input class="radio_btn unread" type="radio"
 												name="site${bookInfo.bookId}" value="1"
@@ -334,8 +279,8 @@ function selection(){
 										</div>
 									</div>
 								</c:if>
-							<c:if test="${bookInfo.status.equals('2')}">
-								<div style="display: grid; gap: 20px; padding-top: 8px;">
+								<c:if test="${bookInfo.status.equals('2')}">
+								<div style="display: grid; gap: 20px;">
 									<div>
 										<input class="radio_btn unread" type="radio"
 											name="site${bookInfo.bookId}" value="1"
@@ -357,10 +302,10 @@ function selection(){
 										<label class="label_read"></label>
 										<p class="status">読了</p>
 									</div>
-								</div>
-							</c:if>
-							<c:if test="${bookInfo.status.equals('3')}">
-								<div style="display: grid; gap: 20px; padding-top: 8px;">
+									</div>
+								</c:if>
+								<c:if test="${bookInfo.status.equals('3')}">
+								<div style="display: grid; gap: 20px;">
 									<div>
 										<input class="radio_btn unread" type="radio"
 											name="site${bookInfo.bookId}" value="1"
@@ -382,12 +327,10 @@ function selection(){
 										<label class="label_read"></label>
 										<p class="status">読了</p>
 									</div>
-								</div>
-							</c:if>
-							<input type="button" onclick="location.href='https://www.amazon.co.jp/s?k=${bookInfo.title}&ref=nb_sb_noss'" value="Amazonで見る">
+									</div>
+								</c:if>
 						</div>
 					</c:forEach>
-				</div>
 			</div>
 		</div>
 	</main>

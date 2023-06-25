@@ -18,37 +18,38 @@ import jp.co.seattle.library.service.UsersService;
  * ログインコントローラー
  */
 @Controller /** APIの入り口 */
-public class LoginController {
-	final static Logger logger = LoggerFactory.getLogger(LoginController.class);
+public class LoginShelfController {
+	final static Logger logger = LoggerFactory.getLogger(LoginShelfController.class);
 
 	@Autowired
 	private UsersService usersService;
 
-	@RequestMapping(value = "/", method = RequestMethod.GET)
-	public String first(Model model) {
-		return "login"; // jspファイル名
-	}
+//	@RequestMapping(value = "/bookShelf", method = RequestMethod.GET)
+//	public String first(Model model) {
+//		return "login"; // jspファイル名
+//	}
 
 	/**
 	 * ログイン処理
 	 *
 	 * @param email    メールアドレス
 	 * @param password パスワード
+	 * @param shelfPassword 本棚用パスワード
 	 * @param model
 	 * @return ホーム画面に遷移
 	 */
-	@RequestMapping(value = "/login", method = RequestMethod.POST)
-	public String login(@RequestParam("email") String email, @RequestParam("password") String password, Model model) {
+	@RequestMapping(value = "/loginShelf", method = RequestMethod.POST)
+	public String login(@RequestParam("email") String email, @RequestParam("shelfPassword") String shelfPassword, Model model) {
 
 		// メアドとパスワードに一致するユーザー取得
-		UserInfo selectedUserInfo = usersService.selectUserInfo(email, password);
-		System.out.println(selectedUserInfo);
+		UserInfo selectedUserInfo = usersService.selectUserShelf(email, shelfPassword);
+			System.out.println(selectedUserInfo);
 		// ユーザーが存在すればログイン、存在しなければエラー(タスク２)
 		if (Objects.nonNull(selectedUserInfo)) {
-			return "redirect:/home";
+			return "redirect:/bookShelf";
 		} else {
 			model.addAttribute("errorMessage", "メールアドレスとパスワードが一致しません。");
-			return "login";
+			return "shelfLogin";
 		}
 
 	}

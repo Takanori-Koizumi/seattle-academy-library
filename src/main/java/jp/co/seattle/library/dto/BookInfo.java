@@ -22,6 +22,12 @@ public class BookInfo {
 	private String publishDate;
 
 	private String thumbnail;
+	
+	private String tag;
+	
+	private String favorite;
+	
+	private String status;
 
 	public BookInfo() {
 

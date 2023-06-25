@@ -25,12 +25,12 @@
 		</div>
 		<div class="authorization">
 			<div class="authorization_form">
-				<form method="post" action="login">
+				<form method="post" action="loginShelf">
 					<div class="title">ログイン</div>
 					<label class="label">メールアドレス</label> <input type="text"
 						class="input" name="email" id="email" autocomplete="off" required />
-					<label class="label">パスワード</label> <input type="password"
-						class="input" id="password" name="password" required />
+					<label class="label">本棚用パスワード</label> <input type="password"
+						class="input" id="shelfPassword" name="shelfPassword" required />
 					<c:if test="${!empty errorMessage}">
 						<div class="error">${errorMessage}</div>
 					</c:if>
@@ -38,12 +38,10 @@
 				</form>
 			</div>
 			<div class="authorization_navi">
-				<label class="authorization_text">まだアカウントをお持ちでないですか？</label> <a
-					class="authorization_link marker"
-					href="<%=request.getContextPath()%>/newAccount">アカウント作成</a> </div>
+				</div>
 					<div class="authorization_navi">
 					<labe class="authorization_text">パスワードをお忘れの方</label> <a
-					class="authorization_link marker" href="<%=request.getContextPath()%>/resetPass">パスワードリセット</a>
+					class="authorization_link marker" href="<%=request.getContextPath()%>/">パスワードリセット</a>
 			</div>
 		</div>
 		<footer>
