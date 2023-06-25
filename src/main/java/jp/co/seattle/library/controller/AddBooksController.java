@@ -58,7 +58,7 @@ public class AddBooksController {
 	@RequestMapping(value = "/insertBook", method = RequestMethod.POST, produces = "text/plain;charset=utf-8")
 	public String insertBook(Locale locale, @RequestParam("title") String title, @RequestParam("author") String author,
 			@RequestParam("publisher") String publisher, @RequestParam("publishDate") String publishDate,
-			@RequestParam("isbn") String isbn, @RequestParam("description") String description,
+			@RequestParam("isbn") String isbn, @RequestParam("description") String description, @RequestParam("tag") String tag,
 			@RequestParam("thumbnail") MultipartFile file, Model model, RedirectAttributes redirectAttributes) {
 		logger.info("Welcome insertBooks.java! The client locale is {}.", locale);
 
@@ -70,6 +70,7 @@ public class AddBooksController {
 		bookInfo.setPublishDate(publishDate);
 		bookInfo.setIsbn(isbn);
 		bookInfo.setDescription(description);
+		bookInfo.setTag(tag);
 
 		List<String> errorList = bookUtil.checkBookInfo(bookInfo);
 		// errorListに一つでもエラーメッセージが入っていたら登録しない

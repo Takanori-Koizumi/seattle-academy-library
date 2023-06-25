@@ -29,5 +29,11 @@ public class BookDetailsInfo {
 	private String isbn;
 
 	private String description;
+	
+	private String tag;
+	
+	private String favorite;
+	
+	private String status;
 
 }
